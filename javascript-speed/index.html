@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1280" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>JavaScript loops performance presentation | @nkoehring</title>
+    
+    <meta name="description" content="Presentation about JavaScript loops to
+    show the differences between traditional and functional loops" />
+    <meta name="author" content="Norman Köhring" />
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular" rel="stylesheet" />
+
+    <link href="css/style.css" rel="stylesheet" />
+    
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<body>
+
+<div id="impress" data-transition-duration="500">
+
+    <div id="intro" class="step" data-x="-1000" data-y="-1500" data-rotate="-45">
+        <p class="content">lets talk about…</p>
+    </div>
+
+    <div id="glossar" class="step" data-x="0" data-y="0" data-scale="4">
+        <header>
+            <h1>JavaScript</h1>
+            <h1 class="vertical">loops</h1>
+        </header>
+        <ol class="content">
+            <li>Traditional Loops</li>
+            <li>Functional Loops</li>
+            <li>Speed</li>
+            <li>Technical Details</li>
+        </ol>
+    </div>
+
+    <div id="traditional-loops" class="step hidden" data-x="250" data-y="-1030" data-z="-500">
+        <header>
+            <h1>Traditional Loops</h1>
+        </header>
+        <p class="content">
+            <pre style='color:#000020'>
+            <span style='color:#200080; font-weight:bold; '>var</span> i<span style='color:#308080; '>,</span>
+                array <span style='color:#308080; '>=</span> generateSomeArray<span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#308080; '>,</span>
+                len <span style='color:#308080; '>=</span> array<span style='color:#308080; '>.</span>length<span style='color:#308080; '>,</span>
+
+
+            <span style='color:#200080; font-weight:bold; '>for</span><span style='color:#308080; '>(</span>i <span style='color:#308080; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#406080; '>;</span> i <span style='color:#308080; '>&lt;</span> len<span style='color:#406080; '>;</span> i<span style='color:#308080; '>++</span><span style='color:#308080; '>)</span>
+              doFancyStuff<span style='color:#308080; '>(</span>array<span style='color:#308080; '>[</span>i<span style='color:#308080; '>]</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+
+            <span style='color:#595979; '>/* OR */</span>
+
+            i <span style='color:#308080; '>=</span> len<span style='color:#406080; '>;</span>
+            <span style='color:#200080; font-weight:bold; '>while</span><span style='color:#308080; '>(</span>i<span style='color:#308080; '>--</span><span style='color:#308080; '>)</span>
+              doFancyStuff<span style='color:#308080; '>(</span>array<span style='color:#308080; '>[</span>i<span style='color:#308080; '>]</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+            </pre> 
+        </p>
+    </div>
+
+    <div id="functional-loops" class="step hidden" data-x="250" data-y="-500" data-z="-500">
+        <header>
+            <h1>Functional Loops</h1>
+        </header>
+        <p class="content">
+            <pre style='color:#000020;'>
+            <span style='color:#200080; font-weight:bold; '>var</span> array <span style='color:#308080; '>=</span> generateSomeArray<span style='color:#308080; '>(</span><span style='color:#308080; '>)</span><span style='color:#308080; '>,</span>
+                result<span style='color:#406080; '>;</span>
+
+            array<span style='color:#308080; '>.</span>forEach<span style='color:#308080; '>(</span>doFancyStuff<span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+
+            <span style='color:#595979; '>/* OR */</span>
+
+            result <span style='color:#308080; '>=</span> array<span style='color:#308080; '>.</span>map<span style='color:#308080; '>(</span>doFancyStuff<span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+
+            <span style='color:#595979; '>/* OR */</span>
+
+            result <span style='color:#308080; '>=</span> array<span style='color:#308080; '>.</span>filter<span style='color:#308080; '>(</span>doFancyStuff<span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+
+            <span style='color:#595979; '>/* OR EVEN */</span>
+
+            array<span style='color:#308080; '>.</span>reduce<span style='color:#308080; '>(</span><span style='color:#200080; font-weight:bold; '>function</span><span style='color:#308080; '>(</span>prev<span style='color:#308080; '>,</span> curr<span style='color:#308080; '>,</span> i<span style='color:#308080; '>)</span><span style='color:#406080; '>{</span> <span style='color:#200080; font-weight:bold; '>return</span> prev <span style='color:#308080; '>+</span> curr<span style='color:#406080; '>;</span> <span style='color:#406080; '>}</span><span style='color:#308080; '>)</span><span style='color:#406080; '>;</span>
+            </pre>
+        </p>
+    </div>
+
+    <div id="speed" class="step hidden" data-x="250" data-y="30" data-z="-500">
+        <header>
+            <h1 class="speedy">SPEED</h1>
+        </header>
+        <p class="content">
+            <a href="http://jsperf.com/counting-via-for-vs-filter">counting: loop vs filter</a>
+            <br>
+            <a href="http://jsperf.com/are-javascript-methods-slow/5">Are JavaScript methods slow?</a>
+            <br>
+            <a href="http://jsperf.com/for-count-inside-and-outside">Counting inside and outside</a>
+        </p>
+    </div>
+
+    <div id="technical-details" class="step hidden" data-x="250" data-y="560" data-z="-500">
+        <header>
+            <h1>Technical Details</h1>
+        </header>
+        <p class="content">
+            Why is Array.filter so slow, while running a function inside a loop
+            is not? Lets discuss!
+        </p>
+    </div>
+</div>
+
+<script src="js/impress.js"></script>
+<script>impress().init()</script>
+
+</body>
+</html>
